@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Project: Project Template
-# Title: Project Template Main Class ----
+# Project: OC Watersheds
+# Title: OC Watersheds Main Class ----
 # Author: Dr. Kostas Alexandridis, GISP
-# Date: January 2026
+# Date: March 2026
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -235,16 +235,16 @@ class DualOutput:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Define the main class ----
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class ClassTemplate:
+class OCWBD:
     """
-    A class containing functions and methods for the Project Template.
+    A class containing functions and methods for the OC Watersheds project.
     Attributes:
         None
     Methods:
         project_metadata(part: int, version: float, silent: bool = False) -> dict:
-            Generates project metadata for the OCUP data processing project.
+            Generates project metadata for the OC Watersheds data processing project.
         project_directories(silent: bool = False) -> dict:
-            Generates project directories for the OCSWITRS data processing project.
+            Generates project directories for the OC Watersheds data processing project.
     Returns:
         None
     Raises:
@@ -334,8 +334,8 @@ class ClassTemplate:
                 step = "Part 0: General Data Processing"
                 desc = "General data processing and analysis (default)."
 
-        # Import the ocup_metadata json file
-        metadata_file = os.path.join(os.getcwd(), "metadata", "ocup_metadata.json")
+        # Import the project_metadata json file
+        metadata_file = os.path.join(os.getcwd(), "metadata", "project_metadata.json")
         if not os.path.exists(metadata_file):
             raise FileNotFoundError(f"Metadata file not found: {metadata_file}")
         
@@ -350,38 +350,6 @@ class ClassTemplate:
         # Set the metadata version:
         prj_meta["version"] = self.version
 
-        # Set the folder version:
-        folder_version = str(self.version).replace(".", "-")
-
-        data_dir = os.path.join(os.getcwd(), "data", "original", folder_version)
-
-        # create a table with the subdirectories of the current_data_dir folder
-        data_folders = os.listdir(data_dir)
-
-        # Obtain the data folder metadata and populate the prj_meta dictionary
-        for folder in data_folders:
-            folder_path = os.path.join(data_dir, folder)
-            if os.path.isdir(folder_path):
-                # Get the first 2 characters of the folder name
-                folder_id = folder[:2]
-                folder_name = folder.split(f"{folder_id}_")[-1]
-                # Count the number of files in the folder
-                file_count = len(os.listdir(folder_path))
-                prj_meta["folders"][folder_id]["folder"] = folder
-                prj_meta["folders"][folder_id]["count"] = file_count
-                prj_meta["folders"][folder_id]["names"] = {}
-                for file in os.listdir(folder_path):
-                    file_number = file.split(f"{folder_name}_")[-1].replace(".csv", "").split("_of_")[0]
-                    # file_number = int(file.split("File_")[-1].replace(".csv", "").split("_of_")[0])
-                    if os.path.isfile(os.path.join(folder_path, file)):
-                        # Store the file name in the dictionary
-                        prj_meta["folders"][folder_id]["names"][str(file_number)] = {
-                            "no": file_number,
-                            "name": file,
-                            "path": os.path.join(folder_path, file)
-                        }
-                # Sort the prj_meta["folders"][folder_id]["names"] by file number
-                prj_meta["folders"][folder_id]["names"] = dict(sorted(prj_meta["folders"][folder_id]["names"].items(), key = lambda item: item[1]["no"]))
         # Export the metadata dictionary to a JSON file and replace the existing one
         with open(metadata_file, 'w', encoding = "utf-8") as f:
             json.dump(prj_meta, f, indent = 4)
@@ -393,11 +361,6 @@ class ClassTemplate:
             print(f"- Description: {desc}")
             print(f"- Date: {prj_meta['date']}")
             print(f"- Version: {prj_meta['version']}")
-            print("- Folders:")
-            print(f"  - $0 to $10: {prj_meta['folders']['01']['count']} files")
-            print(f"  - $10 to $100: {prj_meta['folders']['02']['count']} files")
-            print(f"  - $100 to $500: {prj_meta['folders']['03']['count']} files")
-            print(f"  - $500+: {prj_meta['folders']['04']['count']} files")
 
         # Return the project metadata dictionary
         return prj_meta
@@ -437,9 +400,9 @@ class ClassTemplate:
             "gis_layouts": os.path.join(self.base_path, "gis", "layouts"),
             "gis_maps": os.path.join(self.base_path, "gis", "maps"),
             "gis_styles": os.path.join(self.base_path, "gis", "styles"),
-            "gis_folder": os.path.join(self.base_path, "gis", "FOLDER_NAME"),
-            "gis_folder_aprx": os.path.join(self.base_path, "gis", "FOLDER_NAME", "FOLDER_NAME.aprx"),
-            "gis_folder_gdb": os.path.join(self.base_path, "gis", "FOLDER_NAME", "FOLDER_NAME.gdb"),
+            "gis_folder": os.path.join(self.base_path, "gis", "ocwbd"),
+            "gis_folder_aprx": os.path.join(self.base_path, "gis", "ocwbd", "ocwbd.aprx"),
+            "gis_folder_gdb": os.path.join(self.base_path, "gis", "ocwbd", "ocwbd.gdb"),
             "gis_supporting_gdb": os.path.join(self.base_path, "gis", "supporting.gdb"),
             "graphics": os.path.join(self.base_path, "graphics"),
             "logs": os.path.join(self.base_path, "logs"),

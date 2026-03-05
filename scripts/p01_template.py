@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Project: Project Template
+# Project: OC Watersheds
 # Part 1: Raw Data Processing ----
 # Author: Dr. Kostas Alexandridis, GISP
-# Version: 2026.1, Date: January 2026
+# Version: 2026.1, Date: March 2026
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-print("\nProject Template: Part 1 - Raw Data Processing\n")
+print("\nOC Watersheds: Part 1 - Raw Data Processing\n")
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,7 +19,7 @@ import datetime
 import pytz
 import pandas as pd
 from dotenv import load_dotenv
-from classTemplate import ClassTemplate
+from scripts.ocwbd import OCWBD
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,21 +30,21 @@ load_dotenv()
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 print("\n2. Create project metadata and directories")
 
-# Initialize the OCUP class
-clt = ClassTemplate(part = 1, version = 2026.1)
+# Initialize the OCWBD class
+wbd = OCWBD(part = 1, version = 2026.1)
 
 # Create project variables
-part = clt.part
-version = clt.version
+part = wbd.part
+version = wbd.version
 
 # Create project metadata
-prj_meta = clt.prj_meta
+prj_meta = wbd.prj_meta
 
 # Create project directories
-prj_dirs = clt.prj_dirs
+prj_dirs = wbd.prj_dirs
 
 # Create logger
-logger = clt.logger
+logger = wbd.logger
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # End of Script ----
